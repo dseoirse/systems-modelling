@@ -1,0 +1,116 @@
+{UTF-8}
+Activate Promotions=
+	1
+	~	
+	~		|
+
+Experienced= INTEG (
+	Promotions,
+		0)
+	~	People
+	~		|
+
+Promotion Time=
+	75
+	~	Day
+	~		|
+
+Promotions=
+	Activate Promotions*(Rookies/Promotion Time)
+	~	People/Day
+	~		|
+
+Rookies= INTEG (
+	-Promotions,
+		20)
+	~	People
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Day
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Day
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Day [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Day [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,Rookies,450,290,76,44,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Experienced,972,290,66,39,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,4,6,2,4,0,0,22,0,0,0,-1--1--1,,1|(815,288)|
+1,5,6,1,100,0,0,22,0,0,0,-1--1--1,,1|(619,288)|
+11,6,0,718,288,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,Promotions,718,313,41,17,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,8,Promotion Time,654,117,51,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,9,1,7,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(578,389)|
+1,10,8,7,1,0,45,0,2,64,0,-1--1--1,|0||-1--1--1,1|(783,180)|
+12,11,0,589,325,20,20,5,7,0,0,-1,0,0,0,0,0,0,0,0,0
+B1
+10,12,Activate Promotions,322,132,37,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,13,12,7,1,0,0,0,0,64,0,-1--1--1,,1|(557,166)|
+///---\\\
+:GRAPH Resouces
+:TITLE Plot of Rookies and Experinced
+:SCALE
+:VAR Rookies
+:LINE-WIDTH 2
+:VAR Experienced
+:LINE-WIDTH 2
+:L<%^E!@
+1:current.vdfx
+4:Time
+5:Promotions
+9:current
+19:100,0
+24:0
+25:100
+26:100
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:4
+41:0
+95:0
+96:0
+97:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
