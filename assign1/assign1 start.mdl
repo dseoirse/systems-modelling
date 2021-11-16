@@ -1,11 +1,12 @@
 {UTF-8}
-Rediscovered Experienced Code  = A FUNCTION OF( Experienced Rediscovery Fraction) ~~|
-Rediscovered Experienced Code=
-	~	
+Rediscovered Rookie Code=
+	Undiscoverd Rework Rookies*Rookie Rediscovery Fraction
+	~	Lines of Code
 	~		|
 
-Code Completd Experienced  = A FUNCTION OF( Experienced Code Completed,-Total Experienced Daily Code Completed\
-		)
+Code Completd Experienced= INTEG (
+	Experienced Code Completed-Total Experienced Daily Code Completed,
+		0)
 	~	
 	~		|
 
@@ -15,27 +16,25 @@ Code Completed= INTEG (
 	~	Lines of Code
 	~		|
 
-Code Completed Rookies  = A FUNCTION OF( Rookie Code Completed,-Total Rookie Daily Code Completed\
-		)
+Code Completed Rookies= INTEG (
+	Rookie Code Completed-Total Rookie Daily Code Completed,
+		0)
 	~	
 	~		|
 
-Code remaining  = A FUNCTION OF( -Experienced Code Completed,-Experienced Code with Errors\
-		,Rediscovered Experienced Code,Rediscovered Rookie Code,-Rookie Code Completed,-Rookie Code with Erros\
-		) ~~|
 Code remaining= INTEG (
 	Rediscovered Experienced Code+Rediscovered Rookie Code-Experienced Code Completed-Experienced Code with Errors\
-		-Rookie Code Completed
--Rookie Code with Errors,
+		-Rookie Code Completed-Rookie Code with Erros,
 		100000)
 	~	Lines of Code
 	~		|
 
-Rookie Code with Erros  = A FUNCTION OF( Rookie Yield)
-	~	
+Rookie Productivity=
+	50
+	~	Lines of Code/People/Day
 	~		|
 
-Experienced Capacity  = A FUNCTION OF( )
+Experienced Capacity  = A FUNCTION OF( Experienced Productivity)
 	~	
 	~		|
 
@@ -43,18 +42,19 @@ Experienced Capacity Share  = A FUNCTION OF( )
 	~	
 	~		|
 
-Experienced Code Completed  = A FUNCTION OF( Experienced Yield) ~~|
 Experienced Code Completed=
+	min(Code remaining,Experienced Capacity)*Experienced Yield
 	~	
 	~		|
 
-Experienced Code with Errors  = A FUNCTION OF( Experienced Yield) ~~|
 Experienced Code with Errors=
+	min(Code remaining,Experienced Capacity)*(1-Experienced Yield)
 	~	
 	~		|
 
-Experienced Productivity  = A FUNCTION OF( )
-	~	
+Experienced Productivity=
+	100
+	~	Lines of Code/(People*Day)
 	~		|
 
 Experienced Rediscovery Fraction=
@@ -62,7 +62,6 @@ Experienced Rediscovery Fraction=
 	~	
 	~		|
 
-Experienced Yield  = A FUNCTION OF( ) ~~|
 Experienced Yield=
 	0.9
 	~	
@@ -72,40 +71,33 @@ Total Rookie Daily Code Completed  = A FUNCTION OF( )
 	~	
 	~		|
 
-Rookie Productivity  = A FUNCTION OF( )
+Rookie Capacity  = A FUNCTION OF( Rookie Productivity)
 	~	
 	~		|
 
-Undiscoverd Rework Rookies  = A FUNCTION OF( -Rediscovered Rookie Code,Rookie Code with Erros\
-		)
+Undiscoverd Rework Rookies= INTEG (
+	Rookie Code with Erros-Rediscovered Rookie Code,
+		0)
 	~	
 	~		|
 
-Undiscovered Rework Experienced  = A FUNCTION OF( Experienced Code with Errors,-Rediscovered Experienced Code\
-		)
+Rediscovered Experienced Code=
+	Undiscovered Rework Experienced*Experienced Rediscovery Fraction
 	~	
 	~		|
 
-Rediscovered Rookie Code  = A FUNCTION OF( Rookie Rediscovery Fraction) ~~|
-Rediscovered Rookie Code=
-	~	
+Undiscovered Rework Experienced= INTEG (
+	Experienced Code with Errors-Rediscovered Experienced Code,
+		0)
+	~	Lines of Code
 	~		|
 
-Rookie Capacity  = A FUNCTION OF( )
-	~	
-	~		|
-
-Rookie Capacity Share  = A FUNCTION OF( )
-	~	
-	~		|
-
-Rookie Code Completed  = A FUNCTION OF( Rookie Yield) ~~|
 Rookie Code Completed=
-	~	
+	min(Code remaining,Rookie Capacity)*Rookie Yield
+	~	Lines of Code
 	~		|
 
-Rookie Rediscovery Fraction=
-	0.05
+Rookie Capacity Share  = A FUNCTION OF( Total Coders,Total Rookies)
 	~	
 	~		|
 
@@ -114,12 +106,27 @@ Rookie Yield=
 	~	
 	~		|
 
-Total Capacity  = A FUNCTION OF( Experienced Capacity,Experienced Productivity,Rookie Capacity\
-		,Rookie Productivity)
+Rookie Code with Erros=
+	min(Code remaining,Rookie Capacity)*(1-Rookie Yield)
+	~	
+	~		|
+
+Total Coders=
+	Experienced+Total Rookies
+	~	
+	~		|
+
+Rookie Rediscovery Fraction=
+	0.05
 	~	
 	~		|
 
 Total Experienced Daily Code Completed  = A FUNCTION OF( )
+	~	
+	~		|
+
+Total Capacity=
+	Experienced Capacity+Rookie Capacity
 	~	
 	~		|
 
@@ -197,92 +204,107 @@ TIME STEP  = 1
 V300  Do not put anything below this section - it will be ignored
 *View 1
 $192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
-10,1,Rookies Stage 1,386,-28,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,2,Rookies Stage 2,656,-30,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,3,Experienced,928,-40,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,4,6,2,4,0,0,22,0,0,0,-1--1--1,,1|(572,-29)|
-1,5,6,1,100,0,0,22,0,0,0,-1--1--1,,1|(471,-29)|
-11,6,200,523,-29,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,7,Promotion Rate 1,523,-10,60,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,8,10,3,4,0,0,22,0,0,0,-1--1--1,,1|(843,-35)|
-1,9,10,2,100,0,0,22,0,0,0,-1--1--1,,1|(741,-35)|
-11,10,310,792,-35,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,11,Promotion Rate 2,792,-16,60,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,12,Total Rookies,524,39,45,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,13,Promotion Delay,649,-159,51,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,14,Activate Promotion,443,-158,69,17,8,131,0,0,0,0,0,0,0,0,0,0,0,0
-1,15,14,6,1,0,0,0,0,64,0,-1--1--1,,1|(432,-90)|
-1,16,14,10,1,0,0,0,0,64,0,-1--1--1,,1|(613,-74)|
-1,17,13,6,1,0,0,0,0,64,0,-1--1--1,,1|(594,-66)|
-1,18,13,10,1,0,0,0,0,64,0,-1--1--1,,1|(767,-126)|
-1,19,1,12,1,0,0,0,0,64,0,-1--1--1,,1|(414,56)|
-1,20,2,12,1,0,0,0,0,64,0,-1--1--1,,1|(606,40)|
-1,21,1,7,1,0,0,0,0,64,0,-1--1--1,,1|(447,27)|
-1,22,2,11,1,0,0,0,0,64,0,-1--1--1,,1|(706,6)|
-10,23,Code remaining,304,313,113,76,3,131,0,0,0,0,0,0,0,0,0,0,0,0
-10,24,Code Completed Rookies,703,275,77,56,3,131,0,0,0,0,0,0,0,0,0,0,0,0
-10,25,Code Completd Experienced,703,414,83,42,3,131,0,0,0,0,0,0,0,0,0,0,0,0
-10,26,Undiscoverd Rework Rookies,730,536,79,42,3,131,0,0,0,0,0,0,0,0,0,0,0,0
-10,27,Undiscovered Rework Experienced,704,690,81,43,3,131,0,0,0,0,0,0,0,0,0,0,0,0
-1,28,30,23,4,0,0,22,0,0,0,-1--1--1,,1|(339,567)|
-1,29,30,27,100,0,0,22,0,0,0,-1--1--1,,1|(704,754)|
-11,30,0,339,754,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,31,Rediscovered Experienced Code,339,781,68,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,32,34,23,4,0,0,22,0,0,0,-1--1--1,,1|(407,473)|
-1,33,34,26,100,0,0,22,0,0,0,-1--1--1,,1|(532,566)|
-11,34,0,407,566,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,35,Rediscovered Rookie Code,407,593,59,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,36,38,24,4,0,0,22,0,0,0,-1--1--1,,1|(573,239)|
-1,37,38,23,100,0,0,22,0,0,0,-1--1--1,,1|(463,239)|
-11,38,0,515,239,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,39,Rookie Code Completed,515,266,46,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,40,42,25,4,0,0,22,0,0,0,-1--1--1,,1|(566,410)|
-1,41,42,23,100,0,0,22,0,0,0,-1--1--1,,1|(507,313)|
-11,42,0,507,410,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,43,Experienced Code Completed,507,448,60,30,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,44,46,27,4,0,0,22,0,0,0,-1--1--1,,1|(447,681)|
-1,45,46,23,100,0,0,22,0,0,0,-1--1--1,,1|(266,531)|
-11,46,0,266,681,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,47,Experienced Code with Errors,266,713,66,24,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-10,48,Experienced Rediscovery Fraction,88,718,68,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,49,48,31,1,0,0,0,0,64,0,-1--1--1,,1|(153,827)|
-10,50,Rookie Rediscovery Fraction,548,622,68,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,51,50,35,1,0,0,0,0,64,0,-1--1--1,,1|(451,646)|
-10,52,Rookie Productivity,90,48,39,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,53,Rookie Yield,651,345,42,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,54,Experienced Productivity,220,50,40,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,55,Experienced Yield,190,552,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,56,Total Capacity,146,144,47,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,57,52,56,1,0,0,0,0,64,0,-1--1--1,,1|(115,96)|
-1,58,54,56,1,0,0,0,0,64,0,-1--1--1,,1|(159,113)|
-10,59,Code Completed,1057,281,88,51,3,131,0,0,0,0,0,0,0,0,0,0,0,0
-1,60,62,59,4,0,0,22,0,0,0,-1--1--1,,1|(924,280)|
-1,61,62,24,100,0,0,22,0,0,0,-1--1--1,,1|(824,280)|
-11,62,0,874,280,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,63,Total Rookie Daily Code Completed,874,307,60,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,64,66,59,4,0,0,22,0,0,0,-1--1--1,,1|(1078,383)|
-1,65,66,25,100,0,0,22,0,0,0,-1--1--1,,1|(929,443)|
-11,66,0,1078,443,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,67,Total Experienced Daily Code Completed,1078,470,77,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,68,Rookie Capacity,348,107,53,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,69,Experienced Capacity,61,322,40,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,70,Rookie Capacity Share,471,109,54,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,71,Experienced Capacity Share,63,261,49,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,72,68,56,0,0,0,0,0,64,0,-1--1--1,,1|(250,124)|
-1,73,69,56,1,0,0,0,0,64,0,-1--1--1,,1|(148,259)|
-1,74,55,42,1,0,0,0,0,64,0,-1--1--1,,1|(295,380)|
-1,75,55,46,1,0,0,0,0,64,0,-1--1--1,,1|(235,605)|
-1,76,53,39,1,0,0,0,0,64,0,-1--1--1,,1|(557,351)|
-1,78,80,26,4,0,0,22,0,0,0,-1--1--1,,3|(512,540)|(511,540)|(581,540)|
-1,79,80,23,100,0,0,22,0,0,0,-1--1--1,,1|(304,503)|
-11,80,0,512,503,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
-10,81,Rookie Code with Erros,579,503,59,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,83,53,81,1,0,0,0,0,64,0,-1--1--1,,1|(578,402)|
+10,1,Rookies Stage 1,386,-62,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Rookies Stage 2,656,-64,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,Experienced,928,-74,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,4,6,2,4,0,0,22,0,0,0,-1--1--1,,1|(572,-63)|
+1,5,6,1,100,0,0,22,0,0,0,-1--1--1,,1|(471,-63)|
+11,6,200,523,-63,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,Promotion Rate 1,523,-44,60,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,3,4,0,0,22,0,0,0,-1--1--1,,1|(843,-69)|
+1,9,10,2,100,0,0,22,0,0,0,-1--1--1,,1|(741,-69)|
+11,10,310,792,-69,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,Promotion Rate 2,792,-50,60,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,12,Total Rookies,524,5,45,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,13,Promotion Delay,649,-193,51,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,14,Activate Promotion,443,-192,69,17,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,15,14,6,1,0,0,0,0,64,0,-1--1--1,,1|(432,-124)|
+1,16,14,10,1,0,0,0,0,64,0,-1--1--1,,1|(613,-108)|
+1,17,13,6,1,0,0,0,0,64,0,-1--1--1,,1|(594,-100)|
+1,18,13,10,1,0,0,0,0,64,0,-1--1--1,,1|(767,-160)|
+1,19,1,12,1,0,0,0,0,64,0,-1--1--1,,1|(414,22)|
+1,20,2,12,1,0,0,0,0,64,0,-1--1--1,,1|(606,6)|
+1,21,1,7,1,0,0,0,0,64,0,-1--1--1,,1|(447,-7)|
+1,22,2,11,1,0,0,0,0,64,0,-1--1--1,,1|(706,-28)|
+10,23,Code remaining,304,279,113,76,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,24,Code Completed Rookies,703,241,77,56,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,25,Code Completd Experienced,703,380,83,42,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,26,Undiscoverd Rework Rookies,730,502,79,42,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,27,Undiscovered Rework Experienced,704,656,81,43,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,28,30,23,4,0,0,22,0,0,0,-1--1--1,,1|(339,533)|
+1,29,30,27,100,0,0,22,0,0,0,-1--1--1,,1|(704,720)|
+11,30,0,339,720,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,31,Rediscovered Experienced Code,339,747,68,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,32,34,23,4,0,0,22,0,0,0,-1--1--1,,1|(407,439)|
+1,33,34,26,100,0,0,22,0,0,0,-1--1--1,,1|(532,532)|
+11,34,0,407,532,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,35,Rediscovered Rookie Code,407,559,59,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,38,24,4,0,0,22,0,0,0,-1--1--1,,1|(573,205)|
+1,37,38,23,100,0,0,22,0,0,0,-1--1--1,,1|(463,205)|
+11,38,0,515,205,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,39,Rookie Code Completed,515,232,46,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,40,42,25,4,0,0,22,0,0,0,-1--1--1,,1|(566,376)|
+1,41,42,23,100,0,0,22,0,0,0,-1--1--1,,1|(507,279)|
+11,42,0,507,376,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,43,Experienced Code Completed,507,414,60,30,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,44,46,27,4,0,0,22,0,0,0,-1--1--1,,1|(447,647)|
+1,45,46,23,100,0,0,22,0,0,0,-1--1--1,,1|(266,497)|
+11,46,0,266,647,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,47,Experienced Code with Errors,266,679,66,24,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,48,Experienced Rediscovery Fraction,88,684,68,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,49,48,31,1,0,0,0,0,64,0,-1--1--1,,1|(153,793)|
+10,50,Rookie Rediscovery Fraction,548,588,68,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,51,50,35,1,0,0,0,0,64,0,-1--1--1,,1|(451,612)|
+10,52,Rookie Productivity,294,149,39,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,53,Rookie Yield,651,311,42,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,54,Experienced Productivity,132,426,40,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,55,Experienced Yield,190,518,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,56,Total Capacity,146,110,47,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,59,Code Completed,1057,247,88,51,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,60,62,59,4,0,0,22,0,0,0,-1--1--1,,1|(924,246)|
+1,61,62,24,100,0,0,22,0,0,0,-1--1--1,,1|(824,246)|
+11,62,0,874,246,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,63,Total Rookie Daily Code Completed,874,273,60,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,64,66,59,4,0,0,22,0,0,0,-1--1--1,,1|(1078,349)|
+1,65,66,25,100,0,0,22,0,0,0,-1--1--1,,1|(929,409)|
+11,66,0,1078,409,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,67,Total Experienced Daily Code Completed,1078,436,77,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,68,Rookie Capacity,348,73,53,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,69,Experienced Capacity,61,288,40,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,70,Rookie Capacity Share,72,20,54,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,71,Experienced Capacity Share,64,164,49,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,72,68,56,0,0,0,0,0,64,0,-1--1--1,,1|(250,90)|
+1,73,69,56,1,0,0,0,0,64,0,-1--1--1,,1|(148,225)|
+1,74,55,42,1,0,0,0,0,64,0,-1--1--1,,1|(295,346)|
+1,75,55,46,1,0,0,0,0,64,0,-1--1--1,,1|(235,571)|
+1,76,53,39,1,0,0,0,0,64,0,-1--1--1,,1|(557,317)|
+1,78,80,26,4,0,0,22,0,0,0,-1--1--1,,3|(512,506)|(511,506)|(581,506)|
+1,79,80,23,100,0,0,22,0,0,0,-1--1--1,,1|(304,469)|
+11,80,0,512,469,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,81,Rookie Code with Erros,579,469,59,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,83,53,81,1,0,0,0,0,64,0,-1--1--1,,1|(578,368)|
+1,84,68,39,0,0,0,0,0,64,0,-1--1--1,,1|(421,143)|
+1,85,68,81,1,0,0,0,0,64,0,-1--1--1,,1|(475,253)|
+1,86,69,43,1,0,0,0,0,64,0,-1--1--1,,1|(272,306)|
+1,87,69,47,1,0,0,0,0,64,0,-1--1--1,,1|(76,503)|
+1,88,54,69,0,0,0,0,0,64,0,-1--1--1,,1|(99,363)|
+1,89,52,68,0,0,0,0,0,64,0,-1--1--1,,1|(319,112)|
+1,90,23,39,0,0,0,0,0,64,0,-1--1--1,,1|(436,249)|
+1,91,23,43,1,0,0,0,0,64,0,-1--1--1,,1|(439,325)|
+1,92,23,81,1,0,0,0,0,64,0,-1--1--1,,1|(446,439)|
+1,93,23,46,0,0,0,0,0,64,0,-1--1--1,,1|(282,491)|
+10,94,Total Coders,203,-47,42,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,95,12,94,1,0,0,0,0,64,0,-1--1--1,,1|(348,25)|
+1,97,3,94,1,0,0,0,0,64,0,-1--1--1,,1|(403,64)|
+1,98,27,31,1,0,0,0,0,64,0,-1--1--1,,1|(612,751)|
+1,99,26,35,1,0,0,0,0,64,0,-1--1--1,,1|(620,551)|
+1,100,12,70,0,0,0,0,0,64,0,-1--1--1,,1|(309,11)|
+1,101,94,70,0,0,0,0,0,64,0,-1--1--1,,1|(151,-20)|
 ///---\\\
 :L<%^E!@
 1:2nd order test.vdfx
 4:Time
-5:Rookie Yield
+5:Total Rookies
 9:2nd order test
 19:100,0
 24:0
